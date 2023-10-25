@@ -72,7 +72,8 @@ body {
     color: #ff8800;
 }
 
-.num_btn:hover,.fun_btn:hover {
+.num_btn:hover,
+.fun_btn:hover {
     background-color: rgba(29, 29, 29, 0.979);
 }
 

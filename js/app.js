@@ -1,52 +1,59 @@
 //                      Variaveis
 let input = document.querySelector('.currentInput')
-let res = document.querySelector('.answerScreen')
+let displayRes = document.querySelector('.answerScreen')
 let buttons = document.querySelectorAll('button')
 let erase = document.querySelector('#erase')
-let clean = document.querySelector('#clear')
+let clear = document.querySelector('#clear')
 let evalue = document.querySelector('#evaluate')
+let tagLastPressedClass
 
-let resCurrent = []
+let displaySup = []
 // ----------------------------------------------------------------------------
 //                  Botão de Limpar
-clean.addEventListener("click", () => {
+clear.addEventListener("click", () => {
 
-    resCurrent = ['']
-    res.innerHTML = 0
+    displaySup = ['']
+    displayRes.innerHTML = 0
     input.className = 'currentInput'
-    res.className = 'answerScreen'
-    res.style.color = "rgba(150, 150, 150, 0.87)"
+    displayRes.className = 'answerScreen'
+    displayRes.style.color = "rgba(150, 150, 150, 0.87)"
 })
 // --------------------------------------------------------------------------
 //                  Logica dos Botões
 buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
-        //          Botões em geral
+        //          Botões com exeção do apagar
         if (!btn.id.match('erase')) {
-            resCurrent.push(btn.value)
-            input.innerHTML = resCurrent.join('')
+            tagLastPressedClass = btn.classList
+            console.log(tagLastPressedClass);
+            if (tagLastPressedClass.value == num_btn) {
+                console.log(1);
 
-            if (btn.classList.contains('num_btn')) {
-                res.innerHTML = eval(resCurrent.join(''))
+                displaySup.push(btn.value)
+                input.innerHTML = displaySup.join('')
+
+                if (btn.classList.contains('num_btn')) {
+                    displayRes.innerHTML = eval(displaySup.join(''))
+                }
             }
         }
 
         //          Botão de apagar
         if (btn.id.match('erase')) {
-            resCurrent.pop()
-            input.innerHTML = resCurrent.join('')
-            res.innerHTML = eval(resCurrent.join(''))
+            displaySup.pop()
+            input.innerHTML = displaySup.join('')
+            displayRes.innerHTML = eval(displaySup.join(''))
         }
 
         //          Botão de igualdade
         if (btn.id.match('evaluate')) {
             input.className = 'answerScreen'
-            res.className = 'currentInput'
-            res.style.color = "white"
+            displayRes.className = 'currentInput'
+            displayRes.style.color = "white"
         }
 
-        if (typeof eval(resCurrent.join('')) == 'undefined') {
-            res.innerHTML = 0
+        if (typeof eval(displaySup.join('')) == 'undefined') {
+            displayRes.innerHTML = 0
         }
     })
 })
