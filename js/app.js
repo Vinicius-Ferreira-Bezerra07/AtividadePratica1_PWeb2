@@ -5,7 +5,7 @@ let buttons = document.querySelectorAll('button')
 let erase = document.querySelector('#erase')
 let clear = document.querySelector('#clear')
 let evalue = document.querySelector('#evaluate')
-let tagLastPressedClass, tagEvalue = false
+let tagLastPressedClass, tagEvalue = false, tagPoint = true
 
 let displaySup = []
 // ----------------------------------------------------------------------------
@@ -37,32 +37,42 @@ buttons.forEach((btn) => {
             displayRes.style.color = "rgba(150, 150, 150, 0.87)"
 
 
-            console.log(tagLastPressedClass);
-            //      Verificação da classe do botão pressionado anteriormente.
+            //      Verificação da classe do botão pressionado.
             if (btn.className == 'num_btn') {
-                console.log(1);
+                //  Verifica se o botão digitado é um '.'
+                if (btn.value == '.') {
+                    if (tagPoint) {
+                        displaySup.push(btn.value)
+                        input.innerHTML = displaySup.join('')
 
-                displaySup.push(btn.value)
-                input.innerHTML = displaySup.join('')
+                        if (btn.classList.contains('num_btn')) {
+                            displayRes.innerHTML = eval(displaySup.join(''))
+                        }
+                        tagPoint = false
+                    }
+                } else {
+                    // Escreve o numero se não for um ponto
+                    displaySup.push(btn.value)
+                    input.innerHTML = displaySup.join('')
 
-                if (btn.classList.contains('num_btn')) {
-                    displayRes.innerHTML = eval(displaySup.join(''))
+                    if (btn.classList.contains('num_btn')) {
+                        displayRes.innerHTML = eval(displaySup.join(''))
+                    }
                 }
             } else {
+                //      Verificação da classe do botão pressionado anteriormente
                 if (tagLastPressedClass == 'num_btn') {
-                    console.log(2);
 
                     displaySup.push(btn.value)
                     input.innerHTML = displaySup.join('')
 
-                    // if (btn.classList.contains('num_btn')) {
-                    //     displayRes.innerHTML = eval(displaySup.join(''))
-                    // }
+                    // Reseta a tag de controle do ponto
+                    tagPoint = true
                 } else {
-                    console.log(3);
                     //  Apaga a operação anterior
                     displaySup.pop()
-                    input.innerHTML = displaySup.join('')
+                    // input.innerHTML = displaySup.join('')
+
                     //  Escreve a operação nova
                     displaySup.push(btn.value)
                     input.innerHTML = displaySup.join('')
@@ -89,8 +99,6 @@ buttons.forEach((btn) => {
             displaySup = ['']
             displaySup.push(displayRes.textContent)
 
-            // console.log(displaySup);
-            // console.log(displayRes);
         }
 
         if (typeof eval(displaySup.join('')) == 'undefined') {
@@ -98,5 +106,3 @@ buttons.forEach((btn) => {
         }
     })
 })
-console.log("Teste Apartir daqui...");
-// console.log(displayRes);
