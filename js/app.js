@@ -30,8 +30,6 @@ buttons.forEach((btn) => {
                 console.log(1);
 
                 displaySup.push(btn.value)
-                console.log(input);
-                console.log(displaySup.join(''));
                 input.innerHTML = displaySup.join('')
 
                 if (btn.classList.contains('num_btn')) {
@@ -69,9 +67,15 @@ buttons.forEach((btn) => {
 
         //          Botão de igualdade
         if (btn.id.match('evaluate')) {
+            
+            
             input.className = 'answerScreen'
             displayRes.className = 'currentInput'
             displayRes.style.color = "white"
+            input = displayRes
+            
+            console.log(input);
+            console.log(displayRes);
         }
 
         if (typeof eval(displaySup.join('')) == 'undefined') {
