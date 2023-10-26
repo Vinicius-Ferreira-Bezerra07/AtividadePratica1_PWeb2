@@ -30,6 +30,8 @@ buttons.forEach((btn) => {
                 console.log(1);
 
                 displaySup.push(btn.value)
+                console.log(input);
+                console.log(displaySup.join(''));
                 input.innerHTML = displaySup.join('')
 
                 if (btn.classList.contains('num_btn')) {
@@ -41,6 +43,10 @@ buttons.forEach((btn) => {
 
                     displaySup.push(btn.value)
                     input.innerHTML = displaySup.join('')
+
+                    // if (btn.classList.contains('num_btn')) {
+                    //     displayRes.innerHTML = eval(displaySup.join(''))
+                    // }
                 } else {
                     console.log(3);
                     //  Apaga a operação anterior
