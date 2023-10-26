@@ -5,7 +5,7 @@ let buttons = document.querySelectorAll('button')
 let erase = document.querySelector('#erase')
 let clear = document.querySelector('#clear')
 let evalue = document.querySelector('#evaluate')
-let tagLastPressedClass
+let tagLastPressedClass, tagEvalue = false
 
 let displaySup = []
 // ----------------------------------------------------------------------------
@@ -23,7 +23,20 @@ clear.addEventListener("click", () => {
 buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
         //          Botões com exeção do apagar
-        if (!btn.id.match('erase')) {
+        if (!btn.id.match('erase') && !btn.id.match('evaluate')) {
+            // Avaliação se essa operação esta ocorrendo apos uma igualdade
+            if (tagEvalue) {
+                input.innerHTML = displaySup
+                tagEvalue = false
+            }
+
+            //  Reset de Clases dos visores
+            input.className = 'currentInput'
+            // input.style.color = "white"
+            displayRes.className = 'answerScreen'
+            displayRes.style.color = "rgba(150, 150, 150, 0.87)"
+
+
             console.log(tagLastPressedClass);
             //      Verificação da classe do botão pressionado anteriormente.
             if (btn.className == 'num_btn') {
@@ -36,7 +49,7 @@ buttons.forEach((btn) => {
                     displayRes.innerHTML = eval(displaySup.join(''))
                 }
             } else {
-                if (tagLastPressedClass == 'num_btn'){
+                if (tagLastPressedClass == 'num_btn') {
                     console.log(2);
 
                     displaySup.push(btn.value)
@@ -67,15 +80,17 @@ buttons.forEach((btn) => {
 
         //          Botão de igualdade
         if (btn.id.match('evaluate')) {
-            
-            
+            tagEvalue = true
+
             input.className = 'answerScreen'
             displayRes.className = 'currentInput'
             displayRes.style.color = "white"
-            input = displayRes
-            
-            console.log(input);
-            console.log(displayRes);
+
+            displaySup = ['']
+            displaySup.push(displayRes.textContent)
+
+            // console.log(displaySup);
+            // console.log(displayRes);
         }
 
         if (typeof eval(displaySup.join('')) == 'undefined') {
@@ -84,3 +99,4 @@ buttons.forEach((btn) => {
     })
 })
 console.log("Teste Apartir daqui...");
+// console.log(displayRes);
