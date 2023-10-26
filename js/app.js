@@ -24,9 +24,9 @@ buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
         //          Botões com exeção do apagar
         if (!btn.id.match('erase')) {
-            tagLastPressedClass = btn.classList
             console.log(tagLastPressedClass);
-            if (tagLastPressedClass.value == num_btn) {
+            //      Verificação da classe do botão pressionado anteriormente.
+            if (btn.className == 'num_btn') {
                 console.log(1);
 
                 displaySup.push(btn.value)
@@ -35,7 +35,23 @@ buttons.forEach((btn) => {
                 if (btn.classList.contains('num_btn')) {
                     displayRes.innerHTML = eval(displaySup.join(''))
                 }
+            } else {
+                if (tagLastPressedClass == 'num_btn'){
+                    console.log(2);
+
+                    displaySup.push(btn.value)
+                    input.innerHTML = displaySup.join('')
+                } else {
+                    console.log(3);
+                    //  Apaga a operação anterior
+                    displaySup.pop()
+                    input.innerHTML = displaySup.join('')
+                    //  Escreve a operação nova
+                    displaySup.push(btn.value)
+                    input.innerHTML = displaySup.join('')
+                }
             }
+            tagLastPressedClass = btn.className
         }
 
         //          Botão de apagar
